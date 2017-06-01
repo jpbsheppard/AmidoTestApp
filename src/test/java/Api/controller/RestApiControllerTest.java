@@ -55,7 +55,7 @@ public class RestApiControllerTest {
 
     @Test
     public void getUserByNameTest(){
-        ResponseEntity<User> user = this.restTemplate.getForEntity("/api/user/{name}", User.class, "Jack");
+        ResponseEntity<User> user = this.restTemplate.getForEntity("/api/user?name={name}", User.class, "Jack");
         assertThat("Http status success", user.getStatusCode().is2xxSuccessful());
         assertThat(user.getBody().getName(), equalTo("Jack"));
     }
