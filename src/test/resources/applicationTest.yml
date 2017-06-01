@@ -1,3 +1,10 @@
 server:
   port: 8081
   contextPath: /AmidoTestApp
+
+
+spring.datasource.url = jdbc:sqlite::vulcanDbTest
+spring.datasource.driver-class-name = org.sqlite.JDBC
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLiteDialect
+spring.datasource.username =
+spring.datasource.password =
