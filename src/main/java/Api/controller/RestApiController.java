@@ -1,6 +1,7 @@
 package Api.controller;
 
 import Api.model.User;
+import Api.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import Api.service.UserService;
 
 import java.util.List;
 
-/**
- * Created by jack on 30/05/17.
- */
 @RestController
 @RequestMapping("/api")
 public class RestApiController {
@@ -44,6 +41,17 @@ public class RestApiController {
         User user = userService.findById(id);
         if (user == null) {
             logger.error("User with id {} not found.", id);
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user" , method = RequestMethod.GET)
+    public ResponseEntity<?> getUser(@RequestParam(value = "name") String name) {
+        logger.info("Fetching User with name {}", name);
+        User user = userService.findByName(name);
+        if (user == null) {
+            logger.error("User with name {} not found.", name);
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<User>(user, HttpStatus.OK);
